@@ -6,10 +6,12 @@ import com.demo.ergiom.gameoflife.game.grid.Position;
 import com.demo.ergiom.gameoflife.game.roundcreator.ConstantSizeRoundCreator;
 import com.demo.ergiom.gameoflife.game.roundcreator.RoundCreator;
 import com.demo.ergiom.gameoflife.game.roundcreator.WrappedBordersRoundCreator;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class Game {
     private Grid grid;
-    private final RoundCreator roundCreator;
+    private RoundCreator roundCreator;
 
     private Game(int height, int width, RoundCreator roundCreator) {
         this.grid = new Grid(height, width, Node.EMPTY);
@@ -28,16 +30,22 @@ public class Game {
         grid.setValue(position, Node.EMPTY);
     }
 
+    public void setRoundCreator(RoundCreator roundCreator) {
+        this.roundCreator = roundCreator;
+    }
+
     @Override
     public String toString() {
         return grid.toString();
     }
 
 
-    public static Game constantSizeGame(int height, int width) {
+    @Contract("_, _ -> new")
+    public static @NotNull Game constantSizeGame(int height, int width) {
         return new Game(height, width, new ConstantSizeRoundCreator());
     }
-    public static Game wrappedBordersGame(int width, int height) {
+    @Contract("_, _ -> new")
+    public static @NotNull Game wrappedBordersGame(int width, int height) {
         return new Game(height, width, new WrappedBordersRoundCreator());
     }
 }
