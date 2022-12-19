@@ -9,11 +9,6 @@ public class Grid {
     private final List<List<Node>> list;
     private final Node defaultNode;
 
-    public Grid() {
-        this.list = new LinkedList<>();
-        defaultNode = Node.EMPTY;
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -28,7 +23,7 @@ public class Grid {
         return builder.toString();
     }
 
-    public Grid(Grid grid) {
+    public Grid(@NotNull Grid grid) {
         this.list = new LinkedList<>();
         this.defaultNode = grid.getDefaultValue();
         _expandTo(grid.getHeight(), grid.getWidth());

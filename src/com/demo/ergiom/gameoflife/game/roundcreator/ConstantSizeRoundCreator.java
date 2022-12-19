@@ -1,4 +1,4 @@
-package com.demo.ergiom.gameoflife.game;
+package com.demo.ergiom.gameoflife.game.roundcreator;
 
 import com.demo.ergiom.gameoflife.game.grid.Grid;
 import com.demo.ergiom.gameoflife.game.grid.Node;
@@ -7,27 +7,22 @@ import com.demo.ergiom.gameoflife.game.grid.Position;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ConstantSizeGame extends Game {
-    private Grid grid;
+public class ConstantSizeRoundCreator extends RoundCreator {
 
-    public ConstantSizeGame(Grid grid) {
+    @Override
+    public Grid create(Grid grid) {
         this.grid = grid;
-    }
+        Grid newGrid = new Grid(grid);
 
-    public ConstantSizeGame(int height, int width) {
-        grid = new Grid(height, width, Node.EMPTY);
-    }
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int column = 0; column < grid.getWidth(); column++) {
+                Position position = new Position(row, column);
+                Node status = _getNewState(position);
+                newGrid.setValue(position, status);
+            }
+        }
 
-
-    @Override
-    Grid getGrid() {
-        return grid;
-    }
-
-
-    @Override
-    public void playRound() {
-        _playRound();
+        return newGrid;
     }
 
 
@@ -41,25 +36,11 @@ public class ConstantSizeGame extends Game {
                 Position neighbour = new Position(
                         position.getRow() + deltaRow,
                         position.getColumn() + deltaColumn);
-                if (grid.onMap(position)) list.add(neighbour);
+                if (grid.onMap(neighbour)) list.add(neighbour);
             }
         }
 
         return list;
-    }
-
-    private void _playRound() {
-        Grid newGrid = new Grid(grid.getHeight(), grid.getWidth(), Node.EMPTY);
-
-        for (int row = 0; row < grid.getHeight(); row++) {
-            for (int column = 0; column < grid.getWidth(); column++) {
-                Position position = new Position(row, column);
-                Node status = _getNewState(position);
-                newGrid.setValue(position, status);
-            }
-        }
-
-        grid = newGrid;
     }
 
     private Node _getNewState(Position position) {
