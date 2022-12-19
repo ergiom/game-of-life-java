@@ -14,12 +14,14 @@ public class ConstantSizeGame extends Game {
         this.grid = grid;
     }
 
-    public ConstantSizeGame() {
-        this.grid = new Grid();
-    }
-
     public ConstantSizeGame(int height, int width) {
         grid = new Grid(height, width, Node.EMPTY);
+    }
+
+
+    @Override
+    Grid getGrid() {
+        return grid;
     }
 
 
@@ -28,25 +30,6 @@ public class ConstantSizeGame extends Game {
         _playRound();
     }
 
-    @Override
-    public void setEmpty(Position position) {
-        _setValue(position, Node.EMPTY);
-    }
-
-    @Override
-    public void setAlive(Position position) {
-        _setValue(position, Node.ALIVE);
-    }
-
-    @Override
-    public String toString() {
-        return grid.toString();
-    }
-
-
-    private void _setValue(Position position, Node state) {
-        grid.setValue(position, state);
-    }
 
     private List<Position> _neighbours(Position position) {
         List<Position> list = new LinkedList<>();
