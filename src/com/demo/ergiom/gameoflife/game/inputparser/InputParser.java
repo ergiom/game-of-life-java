@@ -26,10 +26,26 @@ public class InputParser {
 
 
     private Command _parse(String line) {
-        if (line.equals("list games")) {
+        if (line.equalsIgnoreCase("list games")) {
             return Command.LIST_GAMES;
         }
-        //todo
+
+        if (line.equalsIgnoreCase("select game")) {
+            return Command.SELECT_GAME;
+        }
+
+        if (line.equalsIgnoreCase("play round")) {
+            return Command.PLAY_ROUND;
+        }
+
+        if (line.equalsIgnoreCase("exit")) {
+            return Command.EXIT;
+        }
+
+        if (line.equalsIgnoreCase("help")) {
+            return Command.HELP;
+        }
+
         return null;
     }
 }
