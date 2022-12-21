@@ -92,6 +92,6 @@ public class Controller {
     }
 
     private void listCommands() {
-        //todo
+        System.out.println(InputParser.commandHelp());
     }
 }

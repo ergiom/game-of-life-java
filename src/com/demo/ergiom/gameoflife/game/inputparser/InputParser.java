@@ -26,6 +26,17 @@ public class InputParser {
         return Integer.parseInt(line);
     }
 
+    public static String commandHelp() {
+        StringBuilder builder = new StringBuilder();
+        for (Command command: Command.values()) {
+            if (command.equals(Command.NOT_ASSIGNED)) continue;
+
+            builder.append("* ").append(command.getCommandString()).append('\n');
+        }
+
+        return builder.toString();
+    }
+
 
     private Command _parse(String line) {
         if (line == null) return Command.EXIT;
