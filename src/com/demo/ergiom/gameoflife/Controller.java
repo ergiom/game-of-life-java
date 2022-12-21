@@ -2,6 +2,7 @@ package com.demo.ergiom.gameoflife;
 
 import com.demo.ergiom.gameoflife.game.Game;
 import com.demo.ergiom.gameoflife.game.GameFactory;
+import com.demo.ergiom.gameoflife.game.grid.Position;
 import com.demo.ergiom.gameoflife.game.inputparser.InputParser;
 
 import java.io.IOException;
@@ -21,7 +22,6 @@ public class Controller {
     }
 
     private boolean execute() throws IOException {
-        System.out.print(">> ");
         switch (parser.read()) {
             case EXIT:
                 return false;
@@ -37,6 +37,12 @@ public class Controller {
             case HELP:
                 listCommands();
                 break;
+            case DISPLAY:
+                display();
+                break;
+            case SET:
+                setValue();
+                break;
             default:
                 unknownCommand();
         }
@@ -44,14 +50,37 @@ public class Controller {
         return true;
     }
 
+    private void setValue() throws IOException {
+        int row = parser.readInt("Row = ");
+        int column = parser.readInt("Column = ");
+
+        game.setToggle(new Position(row, column));
+    }
+
+    private void display() {
+        System.out.println(game);
+    }
+
     private void unknownCommand() {
         System.out.println("Unknown command. Try again.");
-        //todo
     }
 
     private void selectGame() {
-        System.out.println();
-        //todo
+        int n;
+        int height;
+        int width;
+
+        try {
+            n = parser.readInt("Type = ");
+            height = parser.readInt("Height = ");
+            width = parser.readInt("Width = ");
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input");
+            return;
+        }
+
+        game = GameFactory.createGame(n, height, width);
     }
 
     private void playRound() {
@@ -59,7 +88,7 @@ public class Controller {
     }
 
     private void listGames() {
-        GameFactory.listGames();
+        System.out.println(GameFactory.listGames());
     }
 
     private void listCommands() {

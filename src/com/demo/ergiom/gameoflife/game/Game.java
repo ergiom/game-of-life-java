@@ -30,6 +30,14 @@ public class Game {
         grid.setValue(position, Node.EMPTY);
     }
 
+    public void setToggle(Position position) {
+        if (grid.getValue(position) == Node.ALIVE) {
+            setEmpty(position);
+        } else {
+            setAlive(position);
+        }
+    }
+
     public void setRoundCreator(RoundCreator roundCreator) {
         this.roundCreator = roundCreator;
     }
