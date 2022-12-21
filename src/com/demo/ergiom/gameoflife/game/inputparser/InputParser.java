@@ -28,32 +28,10 @@ public class InputParser {
 
 
     private Command _parse(String line) {
-        if (line == null || line.equalsIgnoreCase("exit")) {
-            return Command.EXIT;
-        }
+        if (line == null) return Command.EXIT;
 
-        if (line.equalsIgnoreCase("list games")) {
-            return Command.LIST_GAMES;
-        }
-
-        if (line.equalsIgnoreCase("select game")) {
-            return Command.SELECT_GAME;
-        }
-
-        if (line.equalsIgnoreCase("play round")) {
-            return Command.PLAY_ROUND;
-        }
-
-        if (line.equalsIgnoreCase("help")) {
-            return Command.HELP;
-        }
-
-        if (line.equalsIgnoreCase("set")) {
-            return Command.SET;
-        }
-
-        if (line.equalsIgnoreCase("display")) {
-            return Command.DISPLAY;
+        for (Command command: Command.values()) {
+            if (command.getCommandString().equalsIgnoreCase(line.trim())) return command;
         }
 
         return Command.NOT_ASSIGNED;
