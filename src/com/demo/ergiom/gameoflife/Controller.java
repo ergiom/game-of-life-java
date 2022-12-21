@@ -50,11 +50,21 @@ public class Controller {
         return true;
     }
 
-    private void setValue() throws IOException {
+    private void setValue() {
         if (! _gameReady()) return;
 
-        int row = parser.readInt("Row = ");
-        int column = parser.readInt("Column = ");
+        int row;
+        int column;
+
+        try {
+            row = parser.readInt("Row = ");
+            column = parser.readInt("Column = ");
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input");
+            return;
+        }
+
 
         game.setToggle(new Position(row, column));
     }
