@@ -13,12 +13,14 @@ public class InputParser {
 
 
     public Command read() throws IOException {
+        System.out.print(">> ");
         String line = reader.readLine();
 
         return _parse(line);
     }
 
-    public int readInt() throws IOException {
+    public int readInt(String prompt) throws IOException {
+        System.out.print(prompt);
         String line = reader.readLine();
 
         return Integer.parseInt(line);
@@ -46,6 +48,14 @@ public class InputParser {
             return Command.HELP;
         }
 
-        return null;
+        if (line.equalsIgnoreCase("set")) {
+            return Command.SET;
+        }
+
+        if (line.equalsIgnoreCase("display")) {
+            return Command.DISPLAY;
+        }
+
+        return Command.NOT_ASSIGNED;
     }
 }
