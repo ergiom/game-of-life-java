@@ -26,13 +26,13 @@ public class Grid {
     public Grid(@NotNull Grid grid) {
         this.list = new LinkedList<>();
         this.defaultNode = grid.getDefaultValue();
-        _expandTo(grid.getHeight(), grid.getWidth());
+        _expandTo(grid.getHeight() - 1, grid.getWidth() - 1);
     }
 
     public Grid(int height, int width, Node defaultNode) {
         this.list = new LinkedList<>();
         this.defaultNode = defaultNode;
-        _expandTo(height, width);
+        _expandTo(height - 1, width - 1);
     }
 
     public int getHeight() {
