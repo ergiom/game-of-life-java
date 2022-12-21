@@ -51,6 +51,8 @@ public class Controller {
     }
 
     private void setValue() throws IOException {
+        if (! _gameReady()) return;
+
         int row = parser.readInt("Row = ");
         int column = parser.readInt("Column = ");
 
@@ -58,6 +60,7 @@ public class Controller {
     }
 
     private void display() {
+        if (! _gameReady()) return;
         System.out.println(game);
     }
 
@@ -84,6 +87,7 @@ public class Controller {
     }
 
     private void playRound() {
+        if (! _gameReady()) return;
         game.playRound();
     }
 
@@ -93,5 +97,14 @@ public class Controller {
 
     private void listCommands() {
         System.out.println(InputParser.commandHelp());
+    }
+
+    private boolean _gameReady() {
+        if (game == null) {
+            System.out.println("Game has not been initialized!");
+            return false;
+        }
+
+        return true;
     }
 }
